@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>考试诚信监测系统</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>考试诚信监测系统</h1>
+        <div class="exam-selector">
+            <select id="exam-select">
+                <option value="">选择考试...</option>
+            </select>
+        </div>
+    </header>
+
+    <nav class="tabs">
+        <button class="tab active" data-tab="dashboard">总览</button>
+        <button class="tab" data-tab="answer-path">答案路径 (K-index)</button>
+        <button class="tab" data-tab="behavior-path">操作路径</button>
+        <button class="tab" data-tab="time-path">时间路径 (Z-score)</button>
+    </nav>
+
+    <main>
+        <!-- Dashboard -->
+        <section id="dashboard" class="tab-content active">
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>风险分布</h3>
+                    <div id="risk-pie" class="chart-sm"></div>
+                </div>
+                <div class="card">
+                    <h3>高嫌疑考生</h3>
+                    <div id="top-suspects"></div>
+                </div>
+                <div class="card">
+                    <h3>三路径得分</h3>
+                    <div id="path-gauges" class="chart-sm"></div>
+                </div>
+            </div>
+            <div class="card full-width">
+                <h3>考生风险表</h3>
+                <table id="risk-table">
+                    <thead>
+                        <tr>
+                            <th>姓名</th>
+                            <th>K-index</th>
+                            <th>行为得分</th>
+                            <th>Z-score风险</th>
+                            <th>综合风险</th>
+                            <th>等级</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Answer Path -->
+        <section id="answer-path" class="tab-content">
+            <div class="card full-width">
+                <h3>嫌疑对热力矩阵 — K-index</h3>
+                <div id="heatmap-chart" class="chart-lg"></div>
+            </div>
+            <div class="card full-width" id="pair-evidence-panel" style="display:none;">
+                <h3 id="pair-evidence-title">证据详情</h3>
+                <div id="pair-evidence-content"></div>
+            </div>
+        </section>
+
+        <!-- Behavior Path -->
+        <section id="behavior-path" class="tab-content">
+            <div class="card full-width">
+                <div class="controls">
+                    <select id="behavior-student-select">
+                        <option value="">选择考生...</option>
+                    </select>
+                </div>
+                <div class="metrics-row" id="behavior-metrics"></div>
+                <h3>行为时间线</h3>
+                <div id="timeline-chart" class="chart-lg"></div>
+            </div>
+        </section>
+
+        <!-- Time Path -->
+        <section id="time-path" class="tab-content">
+            <div class="card full-width">
+                <div class="controls">
+                    <select id="zscore-student-select">
+                        <option value="">选择考生...</option>
+                    </select>
+                </div>
+                <h3>指标雷达图</h3>
+                <div id="radar-chart" class="chart-md"></div>
+            </div>
+            <div class="card full-width">
+                <h3>异常标记题目</h3>
+                <table id="flags-table">
+                    <thead>
+                        <tr>
+                            <th>题号</th>
+                            <th>难度</th>
+                            <th>学生用时(s)</th>
+                            <th>平均用时(s)</th>
+                            <th>Z-score</th>
+                            <th>类型</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/api.js"></script>
+    <script src="js/heatmap.js"></script>
+    <script src="js/timeline.js"></script>
+    <script src="js/radar.js"></script>
+    <script src="js/evidence.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
